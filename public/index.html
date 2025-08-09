@@ -3,17 +3,130 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bot is Running</title>
+  <title>IrfanBot · WhatsApp Bot</title>
+  <meta name="description" content="IrfanBot — WhatsApp bot is running on this server." />
   <style>
-    body { font-family: sans-serif; margin: 40px; background: #f7f7f7; }
-    .box { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; text-align: center; }
-    h1 { color: #2c7; }
+    :root{
+      --bg:#0b1220; --card:#121a2b; --muted:#9fb0d0; --text:#e9eefc; --accent:#6ae3ff; --ok:#4ade80; --ring:#233152;
+      --shadow:0 20px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Inter,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #0b7cff20, transparent 60%),
+        radial-gradient(900px 500px at 110% 0%, #31ffc820, transparent 60%),
+        linear-gradient(180deg, #091020, #0b1220 30%, #0b1220);
+    }
+
+    .wrap{max-width:980px;margin:0 auto;padding:28px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)
+    }
+    .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,#00e5ff,#7cf6d6); color:#00131a; font-weight:800; box-shadow:var(--shadow)}
+    .brand h1{font-size:20px;margin:0}
+    .badge{font-size:12px;color:#051320;background:#a7ffef22;border:1px solid #4bf6ff55;padding:6px 10px;border-radius:999px}
+
+    .hero{
+      border:1px solid var(--ring); background:linear-gradient(180deg,#0e172a, #0c1426);
+      border-radius:24px; padding:28px; box-shadow:var(--shadow); position:relative; overflow:hidden
+    }
+    .hero h2{margin:0 0 6px 0;font-size:28px;letter-spacing:.2px}
+    .hero p{margin:0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:22px}
+    @media(min-width:820px){ .grid{grid-template-columns:1.2fr .8fr} }
+
+    .card{background:var(--card);border:1px solid var(--ring);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 10px 0;font-size:16px;letter-spacing:.2px;color:#cfe3ff}
+    .kv{display:grid;grid-template-columns:max(120px) 1fr;gap:10px 14px}
+    .kv dt{color:var(--muted)}
+    .kv dd{margin:0}
+    .ok{color:var(--ok);font-weight:600}
+    .muted{color:var(--muted)}
+
+    .buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
+      border:1px solid #2a3a58;background:#12203a;color:#dfe9ff;text-decoration:none;font-weight:600
+    }
+    .btn:hover{background:#162747}
+    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
+
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#0c1d34;border:1px solid #284067;color:#bfe8ff;padding:8px 12px;border-radius:999px}
+    .spark{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px #4ade8016}
+    code{background:#0b1b30;border:1px solid #253a58;color:#bfe8ff;padding:2px 6px;border-radius:8px}
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>✅ Bot is Running</h1>
-    <p>Your WhatsApp bot server is live.</p>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">
+        <div class="logo">IB</div>
+        <div>
+          <h1>IrfanBot</h1>
+          <div class="badge">WhatsApp Bot · Online</div>
+        </div>
+      </a>
+      <div class="pill"><span class="spark"></span> <span id="uptime">starting…</span></div>
+    </header>
+
+    <section class="hero">
+      <h2>🚀 Your bot server is running</h2>
+      <p class="muted">Deploy-ready minimal site for Render. Safe defaults, no external deps.</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Instance Details</h3>
+          <dl class="kv">
+            <dt>Status</dt><dd class="ok">OK</dd>
+            <dt>Port</dt><dd><code id="port">detecting…</code></dd>
+            <dt>Hostname</dt><dd><code id="host">—</code></dd>
+            <dt>Uptime</dt><dd><span id="uptime2">0s</span></dd>
+          </dl>
+          <div class="buttons">
+            <a class="btn" href="/" rel="noopener">Home</a>
+            <a class="btn" href="#" onclick="location.reload();return false;">Refresh</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Quick Tips</h3>
+          <ul class="muted" style="margin:0 0 0 1em; padding-left:10px; line-height:1.7;">
+            <li>Use <code>npm start</code> to run web + bot together.</li>
+            <li>Pair login: run <code>npm run pair</code> (shows pairing code).</li>
+            <li>Session is saved in <code>auth/</code> (auto-login next time).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> IRFAN · All systems nominal.</footer>
   </div>
+
+  <script>
+    // Uptime timer
+    const start = Date.now();
+    setInterval(() => {
+      const s = Math.floor((Date.now() - start)/1000);
+      const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = s%60;
+      const fmt = (n)=> String(n).padStart(2,'0');
+      document.getElementById('uptime').textContent = `uptime ${fmt(h)}:${fmt(m)}:${fmt(sec)}`;
+      document.getElementById('uptime2').textContent = `${h? h+'h ':''}${m? m+'m ':''}${sec}s`;
+    }, 1000);
+
+    // Port & host
+    const port = window.location.port || (location.protocol === 'https:' ? '443' : '80');
+    document.getElementById('port').textContent = port;
+    document.getElementById('host').textContent = location.hostname;
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
